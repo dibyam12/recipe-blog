@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block start%}
+
+<h1 class="m-3" style="margin-left:45px !important;"> {{recipe.name}}</h1>
+<div class="container">
+    <div class="image-container col-md-6">
+        <img class="img" src="/media/{{recipe.image}}">
+    </div>
+    <div class="desc-container col-md-10">
+        <span>
+            <h2 class="text-start ">Description</h2>
+        </span>
+        <div class="text-start text-wrap lh-sm">
+            {{recipe.description | linebreaksbr }}
+        </div>
+    </div>
+    <a href="{% url 'sharedRecipes' %}" class="btn btn-primary w-25 m-4">
+        Return
+
+    </a>
+</div>
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+    .img{
+        height: 400px;
+        border-radius: 25px;
+    }
+</style>
+{% endblock %}

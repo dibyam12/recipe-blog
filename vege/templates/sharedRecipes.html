@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+
+{% block start%}
+{% load static %}
+<style>
+    .line{
+        width: 120px;
+        height: 4px;
+        background: black;
+        margin: 0 auto  24px auto;
+    }
+    .line1{
+        width: 240px;
+        height: 4px;
+        background: black;
+        margin: 0 auto  24px auto;
+        
+    }
+</style>
+
+<!-- <h1>
+    Explore Culinary Delights with Our Recipe Collection
+</h1> -->
+<div class="landing-page">
+    <!-- <nav class="navbar ">
+        <img
+            src="{% static 'logo/logo_Recimages.png' %}"
+            class="logo" />
+        <ul class="d-flex flex-row justify-content-evenly">
+            <li>
+                <a
+                    href="{% url 'sharedRecipes' %}"> <button
+                        class="btn btn-success mr-3">
+                        Recipes</button> </a>
+            </li>
+
+            {% if request.user.is_authenticated %}
+            <li>
+
+                <a href="{% url 'addRecipes' %}"> <button
+                        class="btn btn-success">
+                        Add Recipe</button> </a>
+            </li>
+            <li>
+
+                <a href="{% url 'logoutPage' %}"> <button
+                        class="btn btn-success">
+                        Logout</button> </a>
+            </li>
+            {% else %}
+            <li>
+
+                <a href="{% url 'loginPage' %}"> <button
+                        class="btn btn-success">
+                        Login</button> </a>
+            </li>
+            {% endif %}
+
+        </ul>
+
+    </nav> -->
+    <!-- text- fs-3 text-wrap lh-sm col-md-10 m-5 -->
+    <!-- Welcome to our recipe website! Here you'll find a diverse collection of
+        mouthwatering recipes to tantalize your taste buds.
+        Whether you're a seasoned chef or a cooking novice, our platform offers
+        something for everyone. From quick and easy weeknight dinners to
+        elaborate gourmet creations, we've got you covered.
+        Feel free to browse through our curated selection of recipes and
+        discover
+        new culinary inspirations. Happy cooking! -->
+    <div class="content text-center text-white">
+        <video autoplay loop muted plays-inline class="bg-video">
+            <source src="{% static 'logo/recipe_video.mp4' %}"
+                type="video/mp4">
+        </video>
+        <h1 class="fw-bold ">
+            Explore Culinary Delights with Our Recipe Collection
+        </h1>
+        <a href="#shared" class="text-white fs-5 fw-light mt-4">Explore</a>
+    </div>
+</div>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="title   ">
+            <h1 class="display-4 fw-semibold text-center m-3">About Us</h1>
+            <div class="line"></div>
+        </div>
+        <div class="row d-flex flex-row-reverse">
+            <div class="col-6   align-content-lg-center">
+                <img class="w-100 rounded-circle"
+                    src="{% static 'logo/rec_img1.jpg' %}">
+            </div>
+            <div class="fs-5 col-6">
+                <p>
+                    Welcome to Recipe, your ultimate destination for culinary
+                    inspiration and community-driven cooking! At here, we
+                    believe that food has the power to bring people together,
+                    ignite creativity, and create lasting memories. Our platform
+                    is designed to celebrate the joy of cooking and the art of
+                    sharing delicious recipes with others.
+                    <br /> <br>
+                    Founded by a team of passionate food enthusiasts,This
+                    website is more than just a recipe blog – it's a vibrant
+                    community where home cooks, aspiring chefs, and food lovers
+                    of all skill levels can come together to discover, explore,
+                    and connect. Whether you're searching for quick and easy
+                    weeknight meals, elegant dinner party ideas, or indulgent
+                    desserts to satisfy your sweet tooth, you'll find a treasure
+                    trove of culinary inspiration right here.
+                    <br /><br />
+                    Join us on this gastronomic journey as we celebrate the
+                    diverse flavors, cultures, and traditions that make food
+                    such a powerful and universal language. Whether you're a
+                    seasoned chef or a novice cook, We welcome you to share your
+                    passion for food, connect with fellow foodies, and embark on
+                    your own culinary adventures. Let's cook, create, and
+                    inspire together at Recipe!
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% if sharedRecipes %}
+<h1 id="shared" class=" fw-semibold text-center display-4">Some Shared
+    Recipes</h1>
+<div class="line1"></div>
+<div class="card-container">
+    {% for sharedRecipe in sharedRecipes %}
+    <div class="card text-bg-dark">
+        <img src="/media/{{sharedRecipe.image}}" class="card-img"
+            alt="...">
+        <div class="card-img-overlay">
+            <h5 class="card-title">{{sharedRecipe.name}}</h5>
+            <p
+                class="card-text">{{sharedRecipe.description|truncatechars:100}}</p>
+            <a href="{% url 'recipeDetail' sharedRecipe.id %}"
+                class="btn btn-primary">Details</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<style>
+    .landing-page{
+        width: 100%;
+        height:100vh;
+        background-image: linear-gradient(rgba(12,3,51,0.3),rgba(12,3,51,0.3));
+        position: relative;
+        padding: 0 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+    }
+    nav{
+                
+                padding: 20px 8% !important;
+            
+            }
+            nav ul li{
+                list-style: none;
+                display: inline-block;
+                margin-left: 40px;
+            }
+
+    .content h1{
+        font-size: 80px;
+        transition: 0.3s;
+    }
+
+    .content h1:hover{
+        -webkit-text-stroke: 2px white;
+        color: transparent;
+    }
+    .content a{
+        text-decoration: none;
+        display: inline-block;
+        border: 2px solid white;
+        padding: 12px 40px;
+        border-radius: 25px;
+
+    }
+
+    .content a:hover{
+        color: black  !important;
+        transform: scale(1.2);
+        border: none;
+        background: white;
+    }
+
+    .bg-video{
+        width: 100%;
+        position: absolute;
+        z-index: -1;
+        bottom: 0;
+        right: 0;
+    }
+    @media(max-aspect-ratio: 16/9){
+        .bg-video{
+            width: 100%;
+            height: auto;
+        }
+
+    }
+    .card-container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .card {
+        position: relative; /* Ensure positioning relative to the card */
+        
+        max-width: 400px !important; 
+        max-height: 300px; /* Adjust the max-height as needed */
+        margin: 20px; /* Center the card horizontally */
+        border-radius: 25px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+        overflow: hidden; /* Hide overflowing content */
+    }
+    .card .card-img {
+    width: 100%;
+    height: 100%; /* Adjust height to fill the entire card */
+    object-fit: cover; /* Ensure the image covers the entire space while maintaining aspect ratio */
+    /* border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
+    .card .card-img-overlay {
+        position: absolute; /* Position the overlay relative to the card */
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        color: #fff; /* Text color */
+    }
+
+    .card .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card .card-text {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .card .btn-primary {
+        position: absolute; /* Position the button relative to the overlay */
+        bottom: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .card .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+{% endblock %}
